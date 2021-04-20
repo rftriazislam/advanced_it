@@ -1,8 +1,7 @@
 @extends('admin.master')
 @section('content')
 
-<!-- BEGIN PAGE -->
-<div id="main-content">
+
     <!-- BEGIN PAGE CONTAINER-->
     <div class="container-fluid">
         <!-- BEGIN PAGE HEADER-->
@@ -32,10 +31,7 @@
                         <a href="#">Home</a>
                         <span class="divider">/</span>
                     </li>
-                    <li>
-                        <a href="#">Metro Lab</a>
-                        <span class="divider">/</span>
-                    </li>
+                 
                     <li class="active">
                         Dashboard
                     </li>
@@ -95,16 +91,16 @@
             <div class="metro-nav">
                 <div class="metro-nav-block nav-light-purple">
                     <a data-original-title="" href="#">
-                        <i class="icon-shopping-cart"></i>
+                        <i class="icon-user"></i>
                         <div class="info">29</div>
-                        <div class="status">New Order</div>
+                        <div class="status">list</div>
                     </a>
                 </div>
                 <div class="metro-nav-block nav-light-blue double">
                     <a data-original-title="" href="#">
                         <i class="icon-tasks"></i>
-                        <div class="info">$37624</div>
-                        <div class="status">Stock</div>
+                        <div class="info">37624</div>
+                        <div class="status">dsa</div>
                     </a>
                 </div>
                 <div class="metro-nav-block nav-light-green">
@@ -567,7 +563,6 @@
         <!-- END PAGE CONTENT-->
     </div>
     <!-- END PAGE CONTAINER-->
-</div>
-<!-- END PAGE -->
+
 
 @endsection
