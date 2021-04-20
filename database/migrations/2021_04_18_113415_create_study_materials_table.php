@@ -15,6 +15,13 @@ class CreateStudyMaterialsTable extends Migration
     {
         Schema::create('study_materials', function (Blueprint $table) {
             $table->id();
+            $table->integer('section_id');
+            $table->integer('teacher_id');
+            $table->string('material_name');
+            $table->string('subject');
+            $table->text('description');
+            $table->string('upload_file');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

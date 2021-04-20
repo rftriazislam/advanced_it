@@ -29,7 +29,7 @@ Route::post('/signin', [AuthController::class,'signin']);
 
 Route::group(['middleware' => 'auth:api'], function () {
 
-
-
+ 
+    Route::get('/schedules', [GetController::class,'schedules']);
 
 });

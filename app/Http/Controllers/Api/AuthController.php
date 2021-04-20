@@ -24,7 +24,7 @@ class AuthController extends Controller
         if ($user) {
             return response()->json(['sucsess' => true, 'message' => 'Information save successfully'], 200);
         } else {
-            return response()->json(['success' => false, 'message' => 'something error']);
+            return response()->json(['success' => false, 'message' => 'something error'],400);
         }
     }
 
@@ -38,12 +38,12 @@ class AuthController extends Controller
 
         if (!auth()->attempt($loginData)) {
 
-            return response(['user' => null, 'message' => 'Email or Password Invalied']);
+            return response(['user' => null, 'message' => 'Email or Password Invalied'],400);
         } else {
 
             $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
-            return response(['user' => auth()->user(), 'token' => $accessToken]);
+            return response(['user' => auth()->user(), 'token' => $accessToken],200);
         }
     }  
 }

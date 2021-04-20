@@ -34,7 +34,7 @@
                <!--END SIDEBAR TOGGLE-->
                <!-- BEGIN LOGO -->
                <a class="brand" href="index.html">
-                   <img src="{{asset('back_end')}}/img/logo.png" alt="Metro Lab" />
+                   <img src="{{asset('back_end')}}/img/logo.png" alt="Ait edu" />
                </a>
                <!-- END LOGO -->
                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -439,7 +439,7 @@
 
    <!-- BEGIN FOOTER -->
    <div id="footer">
-       2013 &copy; Metro Lab Dashboard.
+       2021 &copy; Codewin.
    </div>
    <!-- END FOOTER -->
 
