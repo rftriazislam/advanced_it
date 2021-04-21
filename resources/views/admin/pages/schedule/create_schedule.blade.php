@@ -53,59 +53,48 @@
                 </div>
                 <div class="widget-body">
                     <!-- BEGIN FORM-->
-                    <form action="#" class="form-horizontal">
+                    <form action="{{route('post_schedule')}}" method="post" class="form-horizontal">
+
+                        @csrf
                         <div class="control-group">
-                            <label class="control-label"> Section Name</label>
+                            <label class="control-label"> Class Name</label>
                             <div class="controls">
-                                <select data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
+                                <select id="class_id" data-placeholder="Your Favorite Type of Bear" name="class_id" class="chzn-select-deselect span6"
                                     tabindex="-1" id="selCSI">
 
-                                    <option selected=""> One</option>
-                                    <option>Two</option>
-                                    <option> Three</option>
-                                    <option> Four</option>
-                                    <option> Five</option>
-                                    <option> Six</option>
-                                    <option>Seven</option>
-                                    <option> Eight</option>
-                                    <option> Nine</option>
-                                    <option> Ten</option>
-                                    <option> Eleven</option>
-                                    <option> Twelve</option>
+                                    <option selected="" disabled> Select Class</option>
+                                    @foreach($classes as $class)
+                                    <option value="{{$class->id}}">Class {{$class->class_number}}</option>
+                                    @endforeach
 
                                 </select>
                             </div>
                         </div>
 
                         <div class="control-group">
-                            <label class="control-label"> Teacher name</label>
+                            <label class="control-label"> Section name</label>
                             <div class="controls">
-                                <select data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
+                                <select id="section" name="section_id" data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
                                     tabindex="-1" id="selCSI">
 
-                                    <option selected="">Class 1</option>
-                                    <option>Class 2</option>
-                                    <option>Class 3</option>
-                                    <option>Class 4</option>
-                                    <option>Class 5</option>
-                                    <option>Class 6</option>
-                                    <option>Class 7</option>
-                                    <option>Class 8</option>
-                                    <option>Class 9</option>
-                                    <option>Class 10</option>
-                                    <option>Class 11</option>
-                                    <option>Class 12</option>
+                          
 
                                 </select>
                             </div>
                         </div>
-
+                        <div class="control-group">
+                                <label class="control-label">Subject </label>
+                                <div class="controls">
+                                    <input type="text" name="class_subject" class="span6 " />
+                              
+                                </div>
+                            </div>
                         <div class="control-group">
                             <label class="control-label">Start Time</label>
 
                             <div class="controls">
                                 <div class="input-append bootstrap-timepicker">
-                                    <input id="timepicker1" type="text" class="input-small">
+                                    <input id="timepicker1" type="time" name="start_time" class="input-small">
                                     <span class="add-on"><i class="icon-time"></i></span>
                                 </div>
                             </div>
@@ -115,11 +104,12 @@
 
                             <div class="controls">
                                 <div class="input-append bootstrap-timepicker">
-                                    <input id="timepicker1" type="text" class="input-small">
+                                    <input id="timepicker1" type="time" name="end_time" class="input-small">
                                     <span class="add-on"><i class="icon-time"></i></span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success">Save</button>
                             <button type="button" class="btn">Cancel</button>
@@ -132,4 +122,40 @@
         </div>
     </div>
 </div>
+
+<script type=text/javascript>
+    $('#class_id').change(function(){
+    var class_id = $(this).val();  
+    if(class_id){
+      $.ajax({
+        type:"GET",
+        url:"{{url('get-section-list')}}?class_id="+class_id,
+       
+
+        success:function(res){        
+        if(res){
+          $("#section").empty();
+          $("#section").append('<option selected="" disabled>Select Section</option>');
+          $.each(res,function(key,value){
+            $("#section").append('<option value="'+key+'">'+value+'</option>');
+          });
+        
+        }else{
+          $("#section").empty();
+    
+        }
+        }
+      });
+    }else{
+        
+      $("#section").empty();
+     
+  }   
+  });
+  </script>
+@endsection
+
+
+@section('js')
+
 @endsection

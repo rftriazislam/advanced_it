@@ -52,58 +52,48 @@
                     </span>
                 </div>
                 <div class="widget-body">
+
+                
                     <!-- BEGIN FORM-->
-                    <form action="#" class="form-horizontal">
-                    <div class="control-group">
-                            <label class="control-label"> Class Name</label>
-                            <div class="controls">
-                                <select data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
-                                    tabindex="-1" id="selCSI">
+                    <form action="{{route('post_class')}}" method="post" class="form-horizontal">
 
-                                    <option selected=""> One</option>
-                                    <option>Two</option>
-                                    <option> Three</option>
-                                    <option> Four</option>
-                                    <option> Five</option>
-                                    <option> Six</option>
-                                    <option>Seven</option>
-                                    <option> Eight</option>
-                                    <option> Nine</option>
-                                    <option> Ten</option>
-                                    <option> Eleven</option>
-                                    <option> Twelve</option>
+                        @csrf
 
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="control-group">
                             <label class="control-label"> Class Number</label>
                             <div class="controls">
-                                <select data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
+                                <select data-placeholder="Your Favorite Type of Bear" name="class_number"
+                                    class="chzn-select-deselect span6  "
                                     tabindex="-1" id="selCSI">
 
-                                    <option selected="">Class 1</option>
-                                    <option>Class 2</option>
-                                    <option>Class 3</option>
-                                    <option>Class 4</option>
-                                    <option>Class 5</option>
-                                    <option>Class 6</option>
-                                    <option>Class 7</option>
-                                    <option>Class 8</option>
-                                    <option>Class 9</option>
-                                    <option>Class 10</option>
-                                    <option>Class 11</option>
-                                    <option>Class 12</option>
-
+                                    <option selected="" value="1">Class 1</option>
+                                    <option value="2">Class 2</option>
+                                    <option value="3">Class 3</option>
+                                    <option value="4">Class 4</option>
+                                    <option value="5">Class 5</option>
+                                    <option value="6">Class 6</option>
+                                    <option value="7">Class 7</option>
+                                    <option value="8">Class 8</option>
+                                    <option value="9">Class 9</option>
+                                    <option value="10">Class 10</option>
+                                    <option value="11">Class 11</option>
+                                    <option value="12">Class 12</option>
+                                   
                                 </select>
+                                 
                             </div>
+                                    @error('class_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror    
                         </div>
                         <div class="control-group">
                             <label class="control-label">Group</label>
                             <div class="controls">
-                                <select data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
-                                    tabindex="-1" id="selCSI">
+                                <select data-placeholder="Your Favorite Type of Bear" name="group"
+                                    class="chzn-select-deselect span6" tabindex="-1" id="selCSI">
 
                                     <option selected="">No Group</option>
                                     <option>Science</option>
@@ -114,6 +104,11 @@
 
                                 </select>
                             </div>
+                                   @error('group')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror  
                         </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success">Save</button>

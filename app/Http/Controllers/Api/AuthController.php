@@ -22,7 +22,20 @@ class AuthController extends Controller
 
         $user = User::create($validatedData);
         if ($user) {
-            return response()->json(['sucsess' => true, 'message' => 'Information save successfully'], 200);
+            $loginData = $request->validate([
+                'email' => 'email|required',
+                'password' => 'required'
+            ]);
+            if (!auth()->attempt($loginData)) {
+
+                return response(['success' => false, 'message' => 'Email or Password Invalied'],400);
+
+            } else {
+    
+                $accessToken = auth()->user()->createToken('authToken')->accessToken;
+    
+                return response(['user' => auth()->user(), 'token' => $accessToken],200);
+            }
         } else {
             return response()->json(['success' => false, 'message' => 'something error'],400);
         }

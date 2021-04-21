@@ -18,6 +18,14 @@
    <link href="{{asset('back_end')}}/css/style-default.css" rel="stylesheet" id="style_color" />
    <link href="{{asset('back_end')}}/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
    <link href="{{asset('back_end')}}/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+  
+  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+strong{
+    color:red;
+}
+</style>
+@yield('style')
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -330,7 +338,7 @@
                 </a>
                 <ul class="sub">
                     <li><a class="" href="{{route('create_schedule')}}"><i class="icon-plus"></i> Create Schedule</a></li>
-                    <li><a class="" href="{{route('section_list')}}"><i class="icon-qrcode"></i> Schedule List</a></li>
+                    <li><a class="" href="{{route('schedule_list')}}"><i class="icon-qrcode"></i> Schedule List</a></li>
                    
                 </ul>
             </li>
@@ -347,110 +355,113 @@
                 </ul>
             </li>
           
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('create/assignment') ? 'active' : '' }}{{ Request::is('assignment/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-fire"></i>
                     <span>Assignment</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" href="font_awesome.html"><i class="icon-plus"></i> Create Assignment</a></li>
-                    <li><a class="" href="glyphicons.html"><i class="icon-qrcode"></i> View List</a></li>
+                    <li><a class="" href="{{route('create_assignment')}}"><i class="icon-plus"></i> Create Assignment</a></li>
+                    <li><a class="" href="{{route('assignment_list')}}"><i class="icon-qrcode"></i> View List</a></li>
                 </ul>
             </li>
 
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('create/attendance') ? 'active' : '' }}{{ Request::is('attendance/list') ? 'active' : '' }}">
                 <a class="" href="javascript:;">
                     <i class="icon-trophy"></i>
                     <span>Attendance</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a href="general_portlet.html" class=""><i class="icon-plus"></i> Create Attendance</a></li>
-                    <li><a href="draggable_portlet.html" class=""><i class="icon-qrcode"></i> View List</a></li>
+                    <li><a href="{{route('create_attendance')}}" class=""><i class="icon-plus"></i> Create Attendance</a></li>
+                    <li><a href="{{route('attendance_list')}}" class=""><i class="icon-qrcode"></i> View List</a></li>
                 </ul>
             </li>
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('create/exam') ? 'active' : '' }}{{ Request::is('exam/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-fire"></i>
                     <span>Exam</span>
                     <span class="arrow"></span>
                 </a>
-                <ul class="sub">
-                    <li><a class="" href="font_awesome.html"><i class="icon-plus"></i> Create Exam</a></li>
-                    <li><a class="" href="glyphicons.html"><i class="icon-qrcode"></i> View List</a></li>
+                <ul class="sub ">
+                    <li><a class="" href="{{route('create_exam')}}"><i class="icon-plus"></i> Create Exam</a></li>
+                    <li><a class="" href="{{route('exam_list')}}"><i class="icon-qrcode"></i> View List</a></li>
                 </ul>
             </li>
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('create/question') ? 'active' : '' }}{{ Request::is('question/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-fire"></i>
                     <span>Question</span>
-                
+                    <span class="arrow"></span>
                 </a>
-                
+                <ul class="sub ">
+                    <li><a class="" href="{{route('create_question')}}"><i class="icon-plus"></i> Create Question</a></li>
+                    <li><a class="" href="{{route('question_list')}}"><i class="icon-qrcode"></i> View List</a></li>
+                </ul>
             </li>
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('create/library') ? 'active' : '' }}{{ Request::is('library/list') ? 'active' : '' }}">
                 <a class="" href="javascript:;">
                     <i class="icon-map-marker"></i>
                     <span>Book Library</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a href="vector_map.html" class=""><i class="icon-plus"></i> Create Book</a></li>
-                    <li><a href="google_map.html" class=""><i class="icon-qrcode"></i> View List</a></li>
+                    <li><a href="{{route('create_library')}}" class=""><i class="icon-plus"></i> Create Book</a></li>
+                    <li><a href="{{route('library_list')}}" class=""><i class="icon-qrcode"></i> View List</a></li>
                 </ul>
             </li>
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('create/notice') ? 'active' : '' }}{{ Request::is('notice/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-file-alt"></i>
                     <span>Notice</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" href="blank.html"><i class="icon-plus"></i> Create Notice</a></li>
-                    <li><a class="" href="blog.html"><i class="icon-qrcode"></i> View List</a></li>
+                    <li><a class="" href="{{route('create_notice')}}"><i class="icon-plus"></i> Create Notice</a></li>
+                    <li><a class="" href="{{route('notice_list')}}"><i class="icon-qrcode"></i> View List</a></li>
                   
                 </ul>
             </li>
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('create/vacation') ? 'active' : '' }}{{ Request::is('vacation/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-file-alt"></i>
                     <span>Vacation</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" href="blank.html"><i class="icon-plus"></i> Create Vacation</a></li>
-                    <li><a class="" href="blog.html"><i class="icon-qrcode"></i> View List</a></li>
+                    <li><a class="" href="{{route('create_vacation')}}"><i class="icon-plus"></i> Create Vacation</a></li>
+                    <li><a class="" href="{{route('vacation_list')}}"><i class="icon-qrcode"></i> View List</a></li>
                   
                 </ul>
             </li>
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('create/video') ? 'active' : '' }}{{ Request::is('video/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-file-alt"></i>
                     <span>Video</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" href="blank.html"><i class="icon-plus"></i> Create Video</a></li>
-                    <li><a class="" href="blog.html"><i class="icon-qrcode"></i> View List</a></li>
+                    <li><a class="" href="{{route('create_video')}}"><i class="icon-plus"></i> Create Video</a></li>
+                    <li><a class="" href="{{route('video_list')}}"><i class="icon-qrcode"></i> View List</a></li>
                   
                 </ul>
             </li>
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('create/teacher') ? 'active' : '' }}{{ Request::is('teacher/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-user"></i>
                     <span>Teacher</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" href="lock.html"><i class="icon-plus"></i> Create Teacher</a></li>
-                    <li><a class="" href="invoice.html"><i class="icon-qrcode"></i> View List</a></li>
+                    <li><a class="" href="{{route('create_teacher')}}"><i class="icon-plus"></i> Create Teacher</a></li>
+                    <li><a class="" href="{{route('teacher_list')}}"><i class="icon-qrcode"></i> View List</a></li>
                    
                 </ul>
             </li>
 
-            <li>
-                <a class="" href="login.html">
+            <li class="{{ Request::is('student/list') ? 'active' : '' }}">
+                <a class="" href="{{route('student_list')}}">
                     <i class="icon-user"></i>
                     <span>Student List</span>
                 </a>
@@ -498,6 +509,7 @@
    <script src="{{asset('back_end')}}/js/jquery.scrollTo.min.js"></script>
 
 
+   
    <!--common script for all pages-->
    <script src="{{asset('back_end')}}/js/common-scripts.js"></script>
 
@@ -509,6 +521,10 @@
    <script src="{{asset('back_end')}}/js/home-chartjs.js"></script>
 
    <!-- END JAVASCRIPTS -->   
+
+
+@yield('js')
+
 </body>
 <!-- END BODY -->
 </html>
