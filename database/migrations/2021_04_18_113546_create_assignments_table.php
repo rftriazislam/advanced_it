@@ -22,7 +22,7 @@ class CreateAssignmentsTable extends Migration
             $table->text('description');
             $table->time('deadline');
             $table->string('upload_question');
-            $table->string('upload_answer');
+            $table->string('upload_answer')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

@@ -59,8 +59,8 @@
                         <div class="control-group">
                             <label class="control-label"> Class Name</label>
                             <div class="controls">
-                                <select id="class_id" data-placeholder="Your Favorite Type of Bear" name="class_id" class="chzn-select-deselect span6"
-                                    tabindex="-1" id="selCSI">
+                                <select id="class_id" data-placeholder="Your Favorite Type of Bear" name="class_id"
+                                    class="chzn-select-deselect span6" tabindex="-1" id="selCSI">
 
                                     <option selected="" disabled> Select Class</option>
                                     @foreach($classes as $class)
@@ -74,21 +74,40 @@
                         <div class="control-group">
                             <label class="control-label"> Section name</label>
                             <div class="controls">
-                                <select id="section" name="section_id" data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
-                                    tabindex="-1" id="selCSI">
+                                <select id="section" name="section_id" data-placeholder="Your Favorite Type of Bear"
+                                    class="chzn-select-deselect span6" tabindex="-1" id="selCSI">
 
-                          
+
 
                                 </select>
                             </div>
                         </div>
                         <div class="control-group">
-                                <label class="control-label">Subject </label>
-                                <div class="controls">
-                                    <input type="text" name="class_subject" class="span6 " />
-                              
-                                </div>
+                            <label class="control-label">Subject </label>
+                            <div class="controls">
+                                <input type="text" name="class_subject" class="span6 " />
+
                             </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> Day Name</label>
+                            <div class="controls">
+                                <select data-placeholder="Your Favorite Type of Bear" name="day" class="chzn-select-deselect span6"
+                                    tabindex="-1" id="selCSI">
+
+                                    <option selected="" value="Saturday"> Saturday </option>
+                                    <option value="Sunday">Sunday </option>
+                                    <option value="Monday"> Monday </option>
+                                    <option value="Tuesday"> Tuesday </option>
+                                    <option value="Wednesday"> Wednesday </option>
+                                    <option value="Thursday"> Thursday </option>
+                                    <option value="Friday">Friday </option>
+                                   
+
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="control-group">
                             <label class="control-label">Start Time</label>
 
@@ -123,39 +142,40 @@
     </div>
 </div>
 
-<script type=text/javascript>
-    $('#class_id').change(function(){
-    var class_id = $(this).val();  
-    if(class_id){
-      $.ajax({
-        type:"GET",
-        url:"{{url('get-section-list')}}?class_id="+class_id,
-       
 
-        success:function(res){        
-        if(res){
-          $("#section").empty();
-          $("#section").append('<option selected="" disabled>Select Section</option>');
-          $.each(res,function(key,value){
-            $("#section").append('<option value="'+key+'">'+value+'</option>');
-          });
-        
-        }else{
-          $("#section").empty();
-    
-        }
-        }
-      });
-    }else{
-        
-      $("#section").empty();
-     
-  }   
-  });
-  </script>
 @endsection
 
 
 @section('js')
+<script type=text/javascript>
+$('#class_id').change(function() {
+    var class_id = $(this).val();
+    if (class_id) {
+        $.ajax({
+            type: "GET",
+            url: "{{url('get-section-list')}}?class_id=" + class_id,
 
+
+            success: function(res) {
+                if (res) {
+                    $("#section").empty();
+                    $("#section").append('<option selected="" disabled>Select Section</option>');
+                    $.each(res, function(key, value) {
+                        $("#section").append('<option value="' + key + '">' + value +
+                            '</option>');
+                    });
+
+                } else {
+                    $("#section").empty();
+
+                }
+            }
+        });
+    } else {
+
+        $("#section").empty();
+
+    }
+});
+</script>
 @endsection

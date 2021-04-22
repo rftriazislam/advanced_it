@@ -14,6 +14,7 @@ class ClassSchedule extends Model
         'start_time',
         'end_time',
         'class_subject',
+        'day'
     ];
     public function section_info(){
         return $this->hasOne('App\Models\Section','id','section_id');

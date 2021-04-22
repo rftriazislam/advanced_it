@@ -18,6 +18,7 @@ class CreateClassSchedulesTable extends Migration
             $table->integer('section_id');
             $table->integer('teacher_id');
             $table->string('class_subject');
+            $table->string('day');
             $table->time('start_time');
             $table->time('end_time'); 
             $table->tinyInteger('status')->default(0);

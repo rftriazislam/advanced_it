@@ -31,4 +31,10 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/schedules', [GetController::class,'schedules']);
 
+    Route::get('/study/materials', [GetController::class,'materials']);
+
+    Route::get('/assignments', [GetController::class,'assignments']);
+
+    Route::get('/attendances', [GetController::class,'attendances']);
+    Route::get('/notices', [GetController::class,'notices']);
 });

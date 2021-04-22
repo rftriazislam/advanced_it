@@ -18,7 +18,7 @@ class CreateAttendancesTable extends Migration
             $table->integer('section_id');
             $table->integer('teacher_id');
             $table->integer('student_id');
-            $table->boolean('attend');
+            $table->string('attend');
             $table->date('date');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

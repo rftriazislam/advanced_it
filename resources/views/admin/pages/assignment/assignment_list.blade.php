@@ -62,25 +62,44 @@
                                         <th><i class="icon-bullhorn"></i> ID</th>
                                         <th class="hidden-phosne"><i class="icon-class"></i> Class Name</th>
                                         <th><i class="icon-bookmark"></i> Teacher Name</th>
-                                        <th><i class="icon-bookmark"></i> Section Name</th>
+                                        <th><i class="icon-bookmark"></i>Assignment</th>
+                                        <th><i class="icon-bookmark"></i>Subject</th>
+                                        <th><i class="icon-bookmark"></i>Description</th>
+                                        <th><i class="icon-bookmark"></i>Deadline</th>
+                                        <th><i class="icon-bookmark"></i>Question</th>
+                                        <th><i class="icon-bookmark"></i>Answer</th>
+                                        <th><i class="icon-bookmark"></i></th>
+
+
+
+
+
 
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                          @foreach($assignments as $assignment )
                                     <tr>
-                                        <td><a href="#">1</a></td>
-                                        <td>One </td>
-                                        <td><span class="label label-important label-mini">Class 1</span></td>
-                                        <td><span class="label label-important label-mini">No Group</span></td>
+                                    <td><a href="#">{{$assignment->id}}</a></td>
+                                <td>Class {{$assignment->section_info->class_info->class_number}} {{$assignment->section_info->section_name}}</td>
+                                <td><span class="label label-important label-mini">{{$assignment->teacher_info->name}}</span></td>
+                                <td><span class="label label-important label-mini">{{$assignment->assignment_name}}</span></td>
+                             
+                                <td><span class="label label-important label-mini">{{$assignment->subject}}</span></td>
+                                <td><span class="label label-important label-mini">{{$assignment->description}}</span></td>
+                                <td><span class="label label-important label-mini">{{$assignment->deadline}}</span></td>
+                                <td><span class="label label-important label-mini"><a href="{{asset('Assignment/question')}}/{{$assignment->upload_question}}">Question</a></span></td>
+                                <td><span class="label label-important label-mini"><a href="{{asset('Assignment/answer')}}/{{$assignment->upload_answer}}">Answer</a></span></td>
+
+
                                         <td>
                                             <button class="btn btn-success"><i class="icon-ok"></i></button>
                                             <button class="btn btn-primary"><i class="icon-pencil"></i></button>
                                             <button class="btn btn-danger"><i class="icon-trash "></i></button>
                                         </td>
                                     </tr>
-                                  
+                                  @endforeach
                                     </tbody>
                                 </table>
                             </div>

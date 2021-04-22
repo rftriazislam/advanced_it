@@ -9,7 +9,10 @@ use App\Models\Classs;
 use App\Models\Teacher;
 use App\Models\Section;
 use App\Models\ClassSchedule;
-
+use App\Models\StudyMaterial;
+use App\Models\Assignments;
+use App\Models\Attendance;
+use App\Models\Notice;
 
 class AdminController extends Controller
 {
@@ -112,6 +115,7 @@ public function create_schedule(){
       'start_time'=>'required',
       'end_time'=>'required',
       'class_subject'=>'required',
+      'day'=>'required'
    ]);
   $teacher_id=Section::where('id',$request->section_id)->first();
   $validatedData['teacher_id']=$teacher_id->teacher_info->id;
@@ -144,26 +148,155 @@ public function create_schedule(){
 
 //----------------------------------------------material------------------------------------
 public function create_material(){
-    return view('admin.pages.material.create_material');   
+   $classes=Classs::all();
+    return view('admin.pages.material.create_material',compact(
+       'classes'
+    ));   
  }
+ public function post_material(Request $request){
+
+   
+   $validatedData= $this->validate($request,[
+      'section_id'=>'required',
+      'material_name'=>'required',
+      'subject'=>'required',
+      'description'=>'required',
+      'upload_file'=>'required|mimes:pdf',
+   ]);
+  $section_info=Section::where('id',$request->section_id)->first();
+  $validatedData['teacher_id']=$section_info->teacher_info->id;
+
+ 
+  if($request->file('upload_file')){  
+
+   $name='class-'.$section_info->class_info->class_number  .'-'.$section_info->section_name.'-'.$request->subject.'-'.rand ( 0 ,100000);
+      $uniqueFileName = $name.'.'. $request->upload_file->getClientOriginalExtension();
+     $request->upload_file->move(public_path('material/') , $uniqueFileName);
+  $validatedData['upload_file']= $uniqueFileName ;
+  }
+   $user = StudyMaterial::create($validatedData);
+   return back()->with('success','Class save successfully');
+
+}
+
  public function material_list(){
-    return view('admin.pages.material.material_list');   
+
+   $materials = StudyMaterial::with([
+      'section_info' => function ($query) {
+          $query->select('id','section_name','class_id')
+          ->with([
+             'class_info'=> function ($query) {
+               $query->select('id','class_number')  ;
+          }]) ;
+         },
+      'teacher_info' => function ($query) {
+         $query->select('id','name');
+     }
+     
+  ])
+  ->get();
+    return view('admin.pages.material.material_list',compact(
+       'materials'
+    ));   
  }
 //----------------------------------------------material------------------------------------
 
 //----------------------------------------------assignment------------------------------------
 public function create_assignment(){
-   return view('admin.pages.assignment.create_assignment');   
+   $classes=Classs::all();
+   return view('admin.pages.assignment.create_assignment',compact(
+      'classes'
+   ));   
 }
+
+
+
+
+public function post_assignment(Request $request){
+
+
+
+   $validatedData= $this->validate($request,[
+      'section_id'=>'required',
+      'assignment_name'=>'required',
+      'subject'=>'required',
+      'description'=>'required',
+      'deadline'=>'required',
+      'upload_question'=>'required|mimes:pdf',
+   ]);
+
+  $section_info=Section::where('id',$request->section_id)->first();
+  $validatedData['teacher_id']=$section_info->teacher_info->id;
+
+ 
+  if($request->file('upload_question')){  
+
+   $name='class-'.$section_info->class_info->class_number  .'-'.$section_info->section_name.'-'.$request->subject.'-'.rand ( 0 ,100000);
+      $uniqueFileName = $name.'.'. $request->upload_question->getClientOriginalExtension();
+     $request->upload_question->move(public_path('Assignment/question/') , $uniqueFileName);
+  $validatedData['upload_question']= $uniqueFileName ;
+  }
+   $user = Assignments::create($validatedData);
+   return back()->with('success','Class save successfully');
+
+}
+
+
+
+
+
+
 public function assignment_list(){
-   return view('admin.pages.assignment.assignment_list');   
+
+   $assignments = Assignments::with([
+      'section_info' => function ($query) {
+          $query->select('id','section_name','class_id')
+          ->with([
+             'class_info'=> function ($query) {
+               $query->select('id','class_number')  ;
+          }]) ;
+         },
+      'teacher_info' => function ($query) {
+         $query->select('id','name');
+     }
+     
+  ])
+  ->get();
+   return view('admin.pages.assignment.assignment_list',compact(
+      'assignments'
+   ));   
 }
 //----------------------------------------------assignment------------------------------------
 
 //----------------------------------------------attendance------------------------------------
 public function create_attendance(){
-   return view('admin.pages.attendance.create_attendance');   
+   $classes=Classs::all();
+   return view('admin.pages.attendance.create_attendance',compact(
+      'classes'
+   ));   
 }
+
+
+public function post_attendance(Request $request){
+
+
+
+   $validatedData= $this->validate($request,[
+      'section_id'=>'required',
+      'student_id'=>'required|exists:users,id',
+      'date'=>'required',
+      'attend'=>'required',
+   ]);
+
+  $section_info=Section::where('id',$request->section_id)->first();
+  $validatedData['teacher_id']=$section_info->teacher_info->id;
+
+
+   $user = Attendance::create($validatedData);
+   return back()->with('success','Class save successfully');
+
+}
+
 public function attendance_list(){
    return view('admin.pages.attendance.attendance_list');   
 }
@@ -198,7 +331,31 @@ public function library_list(){
 
 //----------------------------------------------notice------------------------------------
 public function create_notice(){
-   return view('admin.pages.notice.create_notice');   
+   $classes=Classs::all();
+   return view('admin.pages.notice.create_notice',compact(
+      'classes'
+   ));   
+}
+public function post_notice(Request $request){
+
+
+
+   $validatedData= $this->validate($request,[
+      'date'=>'required',
+      'title'=>'required',
+      'description'=>'required',
+   ]);
+
+  if($request->section_id){
+      $validatedData['section_id']=$request->section_id;
+  }else{
+   $validatedData['section_id']='all';
+  }
+ 
+
+   $user = Notice::create($validatedData);
+   return back()->with('success','Class save successfully');
+
 }
 public function notice_list(){
    return view('admin.pages.notice.notice_list');   

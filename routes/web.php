@@ -51,16 +51,21 @@ Route::get('/schedule/list', [App\Http\Controllers\AdminController::class, 'sche
 
 //---------material-----------
 Route::get('/create/material', [App\Http\Controllers\AdminController::class, 'create_material'])->name('create_material');
+Route::post('/material/post', [App\Http\Controllers\AdminController::class, 'post_material'])->name('post_material');
+
 Route::get('/material/list', [App\Http\Controllers\AdminController::class, 'material_list'])->name('material_list');
 //---------material-----------
 
 //---------assignment-----------
 Route::get('/create/assignment', [App\Http\Controllers\AdminController::class, 'create_assignment'])->name('create_assignment');
+Route::post('/assignment/post', [App\Http\Controllers\AdminController::class, 'post_assignment'])->name('post_assignment');
 Route::get('/assignment/list', [App\Http\Controllers\AdminController::class, 'assignment_list'])->name('assignment_list');
 //---------assignment-----------
 
 //---------attendance-----------
 Route::get('/create/attendance', [App\Http\Controllers\AdminController::class, 'create_attendance'])->name('create_attendance');
+Route::post('/attendance/post', [App\Http\Controllers\AdminController::class, 'post_attendance'])->name('post_attendance');
+
 Route::get('/attendance/list', [App\Http\Controllers\AdminController::class, 'attendance_list'])->name('attendance_list');
 //---------attendance-----------
 
@@ -81,6 +86,8 @@ Route::get('/library/list', [App\Http\Controllers\AdminController::class, 'libra
 
 //---------notice-----------
 Route::get('/create/notice', [App\Http\Controllers\AdminController::class, 'create_notice'])->name('create_notice');
+Route::post('/notice/post', [App\Http\Controllers\AdminController::class, 'post_notice'])->name('post_notice');
+
 Route::get('/notice/list', [App\Http\Controllers\AdminController::class, 'notice_list'])->name('notice_list');
 //---------notice-----------
 
