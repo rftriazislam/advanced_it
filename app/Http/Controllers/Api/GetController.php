@@ -5,12 +5,19 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Classs;
+use App\Models\Teacher;
+use App\Models\Section;
 use App\Models\ClassSchedule;
 use App\Models\StudyMaterial;
 use App\Models\Assignments;
 use App\Models\Attendance;
 use App\Models\Notice;
-
+use App\Models\BookLibrary;
+use App\Models\Exam;
+use App\Models\McQuestion;
+use App\Models\Vacation;
+use App\Models\Result;
+use App\Models\User;
 
 class GetController extends Controller
 {
@@ -146,6 +153,51 @@ public function notices(){
   
 if ($notices) {
     return response()->json(['sucsess' => true, 'notices' => $notices], 200);
+} else {
+    return response()->json(['success' => false, 'message' => 'something error'],400);
+}
+}
+public function libraries(){
+   
+    $libraries = BookLibrary::select('id','book_name','book_type','author_name','upload_file')->get();
+  
+if ($libraries) {
+    return response()->json(['sucsess' => true, 'Book libraries' => $libraries,'upload_file'=>url('public/library')], 200);
+} else {
+    return response()->json(['success' => false, 'message' => 'something error'],400);
+}
+}
+public function exams(){
+   
+    $exams = Exam::select('id','section_id','teacher_id','exam_name','subject','pass_mark','total_question','date','start_time','end_time')->with([
+        'section_info' => function ($query) {
+            $query->select('id','section_name','class_id')
+            ->with([
+               'class_info'=> function ($query) {
+                 $query->select('id','class_number')  ;
+            }]) ;
+           },
+        'teacher_info' => function ($query) {
+           $query->select('id','name');
+       }
+       
+    ])
+
+    ->get();
+  
+if ($exams) {
+    return response()->json(['sucsess' => true, 'exams' => $exams], 200);
+} else {
+    return response()->json(['success' => false, 'message' => 'something error'],400);
+}
+}
+
+public function questions($exam_id){
+   
+    $questions = McQuestion::where('exam_id',$exam_id)->get();
+  
+if ($questions) {
+    return response()->json(['sucsess' => true, 'questions' => $questions], 200);
 } else {
     return response()->json(['success' => false, 'message' => 'something error'],400);
 }

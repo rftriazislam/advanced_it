@@ -351,6 +351,7 @@ public function post_exam(Request $request){
 
 }
 public function exam_list(){
+   
    return view('admin.pages.exam.exam_list');   
 }
 //----------------------------------------------exam------------------------------------

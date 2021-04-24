@@ -22,4 +22,10 @@ class Exam extends Model
         'status'
 
     ];
+    public function section_info(){
+        return $this->hasOne('App\Models\Section','id','section_id');
+    }
+    public function teacher_info(){
+        return $this->hasOne('App\Models\Teacher','id','teacher_id');
+    }
 }

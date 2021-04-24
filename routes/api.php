@@ -32,9 +32,15 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/schedules', [GetController::class,'schedules']);
 
     Route::get('/study/materials', [GetController::class,'materials']);
-
     Route::get('/assignments', [GetController::class,'assignments']);
-
     Route::get('/attendances', [GetController::class,'attendances']);
+
+    Route::get('/libraries', [GetController::class,'libraries']);
+
     Route::get('/notices', [GetController::class,'notices']);
+
+    Route::get('/exams', [GetController::class,'exams']);
+
+    Route::get('/questions/{exam_id}', [GetController::class,'questions']);
+
 });
