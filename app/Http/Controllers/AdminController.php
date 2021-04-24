@@ -13,6 +13,14 @@ use App\Models\StudyMaterial;
 use App\Models\Assignments;
 use App\Models\Attendance;
 use App\Models\Notice;
+use App\Models\BookLibrary;
+use App\Models\Exam;
+use App\Models\McQuestion;
+use App\Models\Vacation;
+use App\Models\Result;
+use App\Models\User;
+
+use Auth;
 
 class AdminController extends Controller
 {
@@ -279,7 +287,7 @@ public function create_attendance(){
 
 public function post_attendance(Request $request){
 
-
+ 
 
    $validatedData= $this->validate($request,[
       'section_id'=>'required',
@@ -298,13 +306,49 @@ public function post_attendance(Request $request){
 }
 
 public function attendance_list(){
-   return view('admin.pages.attendance.attendance_list');   
+   $attendances = Attendance::with([
+      'teacher_info' => function ($query) {
+         $query->select('id','name');
+     },
+     'student_info' => function ($query) {
+      $query->select('id','name','class','section','roll_number');
+  }
+  ])
+  ->get();
+
+   return view('admin.pages.attendance.attendance_list',compact(
+      'attendances'
+   ));   
 }
 //----------------------------------------------attendance------------------------------------
 
 //----------------------------------------------exam------------------------------------
 public function create_exam(){
-   return view('admin.pages.exam.create_exam');   
+   $classes=Classs::all();
+   return view('admin.pages.exam.create_exam',compact(
+      'classes'
+   ));   
+}
+
+public function post_exam(Request $request){
+
+  
+   $validatedData= $this->validate($request,[
+      'section_id'=>'required',
+      'start_time'=>'required',
+      'end_time'=>'required',
+      'exam_name'=>'required',
+      'pass_mark'=>'required',
+      'subject'=>'required',
+      'total_question'=>'required',
+      'date'=>'required'
+   ]);
+  $teacher_id=Section::where('id',$request->section_id)->first();
+  $validatedData['teacher_id']=$teacher_id->teacher_info->id;
+
+   $user = Exam::create($validatedData);
+   return back()->with('success','Class save successfully');
+
 }
 public function exam_list(){
    return view('admin.pages.exam.exam_list');   
@@ -313,8 +357,32 @@ public function exam_list(){
 
 //----------------------------------------------question------------------------------------
 public function create_question(){
-   return view('admin.pages.question.create_question');   
+   $exams=Exam::where('status',1)->get();
+   return view('admin.pages.question.create_question',compact(
+      'exams'
+   ));   
 }
+public function post_question(Request $request){
+
+  
+   $validatedData= $this->validate($request,[
+      'exam_id'=>'required|exists:exams,id',
+      'question_name'=>'required',
+      'question_number'=>'required',
+      'A'=>'required',
+      'B'=>'required',
+      'C'=>'required',
+      'D'=>'required',
+      'answer'=>'required'
+   ]);
+
+
+   $user = McQuestion::create($validatedData);
+   return back()->with('success','Class save successfully');
+
+}
+
+
 public function question_list(){
    return view('admin.pages.question.question_list');   
 }
@@ -324,8 +392,39 @@ public function question_list(){
 public function create_library(){
    return view('admin.pages.library.create_library');   
 }
+
+public function post_library(Request $request){
+
+   
+   $validatedData= $this->validate($request,[
+      'book_name'=>'required',
+      'book_type'=>'required',
+      'author_name'=>'required',
+      'upload_file'=>'required|mimes:pdf',
+   ]);
+
+
+ 
+  $validatedData['librarian_id']=Auth::user()->id;
+
+ 
+  if($request->file('upload_file')){  
+
+    $name=$request->book_name.'-'.$request->author_name.'-'.rand ( 0 ,10000);
+      $uniqueFileName = $name.'.'. $request->upload_file->getClientOriginalExtension();
+     $request->upload_file->move(public_path('library/') , $uniqueFileName);
+  $validatedData['upload_file']= $uniqueFileName ;
+  }
+   $user = BookLibrary::create($validatedData);
+   return back()->with('success','Class save successfully');
+
+}
+
 public function library_list(){
-   return view('admin.pages.library.library_list');   
+   $libraries=BookLibrary::all();
+   return view('admin.pages.library.library_list',compact(
+      'libraries'
+   ));   
 }
 //----------------------------------------------library------------------------------------
 
@@ -358,7 +457,10 @@ public function post_notice(Request $request){
 
 }
 public function notice_list(){
-   return view('admin.pages.notice.notice_list');   
+   $notices=Notice::all();
+   return view('admin.pages.notice.notice_list',compact(
+      'notices'
+   ));   
 }
 //----------------------------------------------notice------------------------------------
 
@@ -366,8 +468,28 @@ public function notice_list(){
 public function create_vacation(){
    return view('admin.pages.vacation.create_vacation');   
 }
+
+public function post_vacation(Request $request){
+
+
+
+   $validatedData= $this->validate($request,[
+      'end_date'=>'required',
+      'vacation_name'=>'required',
+      'start_date'=>'required',
+   ]);
+
+  
+
+   $user = Vacation::create($validatedData);
+   return back()->with('success','Class save successfully');
+
+}
 public function vacation_list(){
-   return view('admin.pages.vacation.vacation_list');   
+   $vacations=Vacation::all();
+   return view('admin.pages.vacation.vacation_list',compact(
+      'vacations'
+   ));   
 }
 //----------------------------------------------vacation------------------------------------
 
@@ -382,7 +504,11 @@ public function teacher_list(){
 
 //----------------------------------------------student------------------------------------
 public function student_list(){
-   return view('admin.pages.student.student_list');   
+
+   $students=User::where('role','student')->get();
+   return view('admin.pages.student.student_list',compact(
+      'students'
+   ));   
 }
 //----------------------------------------------student------------------------------------
 

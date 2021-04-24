@@ -45,7 +45,7 @@
             <!-- BEGIN SAMPLE FORMPORTLET-->
             <div class="widget green">
                 <div class="widget-title">
-                    <h4> Section </h4>
+                    <h4> Schedule </h4>
                     <span class="tools">
                         <a href="javascript:;" class="icon-chevron-down"></a>
                         <a href="javascript:;" class="icon-remove"></a>
@@ -53,91 +53,93 @@
                 </div>
                 <div class="widget-body">
                     <!-- BEGIN FORM-->
-                    <form action="#" class="form-horizontal">
-                        <div class="control-group">
-                            <label class="control-label"> Section Name</label>
-                            <div class="controls">
-                                <select data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
-                                    tabindex="-1" id="selCSI">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    <form action="{{route('post_question')}}" method="post" class="form-horizontal">
 
-                                    <option selected=""> One</option>
-                                    <option>Two</option>
-                                    <option> Three</option>
-                                    <option> Four</option>
-                                    <option> Five</option>
-                                    <option> Six</option>
-                                    <option>Seven</option>
-                                    <option> Eight</option>
-                                    <option> Nine</option>
-                                    <option> Ten</option>
-                                    <option> Eleven</option>
-                                    <option> Twelve</option>
+                        @csrf
+                        <div class="control-group">
+                            <label class="control-label">Question Number (Sri.No) </label>
+                            <div class="controls">
+                                <input type="number" name="question_number" class="span6 " />
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> Exam Name</label>
+                            <div class="controls">
+                                <select id="class_id" data-placeholder="Your Favorite Type of Bear" name="exam_id"
+                                    class="chzn-select-deselect span6" tabindex="-1" id="selCSI">
+
+                                    <option selected="" disabled> Select Exam</option>
+                                    @foreach($exams as $exam)
+                                    <option value="{{$exam->id}}">{{$exam->exam_name}}</option>
+                                    @endforeach
 
                                 </select>
                             </div>
                         </div>
 
-                        <div class="control-group">
-                            <label class="control-label"> Teacher Name</label>
-                            <div class="controls">
-                                <select data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
-                                    tabindex="-1" id="selCSI">
 
-                                    <option selected="">Class 1</option>
-                                    <option>Class 2</option>
-                                    <option>Class 3</option>
-                                    <option>Class 4</option>
-                                    <option>Class 5</option>
-                                    <option>Class 6</option>
-                                    <option>Class 7</option>
-                                    <option>Class 8</option>
-                                    <option>Class 9</option>
-                                    <option>Class 10</option>
-                                    <option>Class 11</option>
-                                    <option>Class 12</option>
+                        <div class="control-group">
+                            <label class="control-label">Question Name </label>
+                            <div class="controls">
+                                <input type="text" name="question_name" class="span6 " />
+
+                            </div>
+                        </div>
+                   
+                        <div class="control-group">
+                            <label class="control-label">Question A</label>
+                            <div class="controls">
+                                <input type="text" required name="A" class="span6 " />
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Question A</label>
+                            <div class="controls">
+                                <input type="text" name="B" required class="span6 " />
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Question C</label>
+                            <div class="controls">
+                                <input type="text" required name="C" class="span6 " />
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Question D</label>
+                            <div class="controls">
+                                <input type="text" name="D" required class="span6 " />
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Question Answer</label>
+                            <div class="controls">
+                                <select data-placeholder="Your Favorite Type of Bear" name="answer"
+                                    class="chzn-select-deselect span6" tabindex="-1" id="selCSI">
+
+                                    <option selected=""> A</option>
+                                    <option>B</option>
+                                    <option> C</option>
+                                    <option> D</option>
+
 
                                 </select>
                             </div>
                         </div>
-                        <div class="control-group">
-                            <label class="control-label">Martial Name</label>
-                            <div class="controls">
-                                <input type="text" class="span6 " />
 
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Subject</label>
-                            <div class="controls">
-                                <input type="text" class="span6 " />
-
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Description</label>
-                            <div class="controls">
-                                <textarea class="span6 " rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                                    <label class="control-label">Upload Pdf</label>
-                                    <div class="controls">
-                                        <div data-provides="fileupload" class="fileupload fileupload-new">
-                                            <div class="input-append">
-                                                <div class="uneditable-input">
-                                                    <i class="icon-file fileupload-exists"></i>
-                                                    <span class="fileupload-preview"></span>
-                                                </div>
-                                               <span class="btn btn-file">
-                                               <span class="fileupload-new">Select file</span>
-                                               <span class="fileupload-exists">Change</span>
-                                               <input type="file" class="default">
-                                               </span>
-                                                <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success">Save</button>
                             <button type="button" class="btn">Cancel</button>
@@ -150,4 +152,41 @@
         </div>
     </div>
 </div>
+
+
+@endsection
+
+
+@section('js')
+<script type=text/javascript>
+$('#class_id').change(function() {
+    var class_id = $(this).val();
+    if (class_id) {
+        $.ajax({
+            type: "GET",
+            url: "{{url('get-section-list')}}?class_id=" + class_id,
+
+
+            success: function(res) {
+                if (res) {
+                    $("#section").empty();
+                    $("#section").append('<option selected="" disabled>Select Section</option>');
+                    $.each(res, function(key, value) {
+                        $("#section").append('<option value="' + key + '">' + value +
+                            '</option>');
+                    });
+
+                } else {
+                    $("#section").empty();
+
+                }
+            }
+        });
+    } else {
+
+        $("#section").empty();
+
+    }
+});
+</script>
 @endsection

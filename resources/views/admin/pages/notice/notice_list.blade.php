@@ -1,6 +1,3 @@
-
-
-
 @extends('admin.master')
 @section('content')
 <!-- BEGIN PAGE CONTAINER-->
@@ -45,49 +42,49 @@
 
 
     <div class="row-fluid">
-                    <div class="span12">
-                        <!-- BEGIN BASIC PORTLET-->
-                        <div class="widget orange">
-                            <div class="widget-title">
-                                <h4><i class="icon-reorder"></i> Class List</h4>
-                            <span class="tools">
-                                <a href="javascript:;" class="icon-chevron-down"></a>
-                                <a href="javascript:;" class="icon-remove"></a>
-                            </span>
-                            </div>
-                            <div class="widget-body">
-                                <table class="table table-striped table-bordered table-advance table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th><i class="icon-bullhorn"></i> ID</th>
-                                        <th class="hidden-phosne"><i class="icon-class"></i> Class Name</th>
-                                        <th><i class="icon-bookmark"></i> Teacher Name</th>
-                                        <th><i class="icon-bookmark"></i> Section Name</th>
-
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    <tr>
-                                        <td><a href="#">1</a></td>
-                                        <td>One </td>
-                                        <td><span class="label label-important label-mini">Class 1</span></td>
-                                        <td><span class="label label-important label-mini">No Group</span></td>
-                                        <td>
-                                            <button class="btn btn-success"><i class="icon-ok"></i></button>
-                                            <button class="btn btn-primary"><i class="icon-pencil"></i></button>
-                                            <button class="btn btn-danger"><i class="icon-trash "></i></button>
-                                        </td>
-                                    </tr>
-                                  
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- END BASIC PORTLET-->
-                    </div>
+        <div class="span12">
+            <!-- BEGIN BASIC PORTLET-->
+            <div class="widget orange">
+                <div class="widget-title">
+                    <h4><i class="icon-reorder"></i> Class List</h4>
+                    <span class="tools">
+                        <a href="javascript:;" class="icon-chevron-down"></a>
+                        <a href="javascript:;" class="icon-remove"></a>
+                    </span>
                 </div>
+                <div class="widget-body">
+                    <table class="table table-striped table-bordered table-advance table-hover">
+                        <thead>
+                            <tr>
+                                <th><i class="icon-bullhorn"></i> ID</th>
+                                <th class="hidden-phosne"><i class="icon-class"></i>Title</th>
+                                <th><i class="icon-bookmark"></i> Description</th>
+                                <th><i class="icon-bookmark"></i> Date</th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($notices as $notice)
+                            <tr>
+                                <td><a href="#">{{$notice->id}}</a></td>
+                                <td>{{$notice->title}} </td>
+                                <td><span class="label label-important label-mini">{{$notice->description}} </span></td>
+                                <td><span class="label label-important label-mini">{{$notice->date}}</span></td>
+                                <td>
+                                    <button class="btn btn-success"><i class="icon-ok"></i></button>
+                                    <button class="btn btn-primary"><i class="icon-pencil"></i></button>
+                                    <button class="btn btn-danger"><i class="icon-trash "></i></button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END BASIC PORTLET-->
+        </div>
+    </div>
 
 
 </div>

@@ -24,4 +24,7 @@ class Attendance extends Model
     public function teacher_info(){
         return $this->hasOne('App\Models\Teacher','id','teacher_id');
     }
+    public function student_info(){
+        return $this->hasOne('App\Models\User','id','student_id');
+    }
 }

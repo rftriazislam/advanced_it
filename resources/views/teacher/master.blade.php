@@ -258,13 +258,13 @@
                        <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                <img src="{{asset('back_end')}}/img/avatar1_small.jpg" alt="">
-                               <span class="username">Jhon Doe</span>
+                               <span class="username">{{Auth::user()->name}}</span>
                                <b class="caret"></b>
                            </a>
                            <ul class="dropdown-menu extended logout">
                                <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
                                <li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
-                               <li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+                               <li><a href="{{route('logout')}}"><i class="icon-key"></i> Log Out</a></li>
                            </ul>
                        </li>
                        <!-- END USER LOGIN DROPDOWN -->
@@ -292,139 +292,69 @@
         <!-- END RESPONSIVE QUICK SEARCH FORM -->
         <!-- BEGIN SIDEBAR MENU -->
         <ul class="sidebar-menu">
-            <li class="sub-menu active">
-                <a class="" href="index.html">
+        <li class="sub-menu {{ Request::is('teacher') ? 'active' : '' }}">
+                <a class="" href="{{url('/teacher')}}">
                     <i class="icon-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="sub-menu">
+            <li class="sub-menu {{ Request::is('teacher/create/material') ? 'active' : '' }}{{ Request::is('teacher/material/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
-                    <i class="icon-book"></i>
-                    <span>UI Elements</span>
+                <i class="icon-th"></i>
+                    <span>Study Material</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" href="general.html">General</a></li>
-                    <li><a class="" href="button.html">Buttons</a></li>
-                    <li><a class="" href="slider.html">Sliders</a></li>
-                    <li><a class="" href="metro_view.html">Metro View</a></li>
-                    <li><a class="" href="tabs_accordion.html">Tabs & Accordions</a></li>
-                    <li><a class="" href="typography.html">Typography</a></li>
-                    <li><a class="" href="tree_view.html">Tree View</a></li>
-                    <li><a class="" href="nestable.html">Nestable List</a></li>
+                    <li><a class="" href="{{route('create_material_teacher')}}"><i class="icon-plus"></i> Create Study Material</a></li>
+                    <li><a class="" href="{{route('material_list_teacher')}}"><i class="icon-qrcode"></i> View List</a></li>
+                   
                 </ul>
             </li>
-            <li class="sub-menu">
-                <a href="javascript:;" class="">
-                    <i class="icon-cogs"></i>
-                    <span>Components</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub">
-                    <li><a class="" href="calendar.html">Calendar</a></li>
-                    <li><a class="" href="grids.html">Grids</a></li>
-                    <li><a class="" href="chartjs.html">Chart Js</a></li>
-                    <li><a class="" href="flot_chart.html">Flot Charts</a></li>
-                    <li><a class="" href="gallery.html"> Gallery</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;" class="">
-                    <i class="icon-tasks"></i>
-                    <span>Form Stuff</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub">
-                    <li><a class="" href="form_layout.html">Form Layouts</a></li>
-                    <li><a class="" href="form_component.html">Form Components</a></li>
-                    <li><a class="" href="form_wizard.html">Form Wizard</a></li>
-                    <li><a class="" href="form_validation.html">Form Validation</a></li>
-                    <li><a class="" href="dropzone.html">Dropzone File Upload </a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;" class="">
-                    <i class="icon-th"></i>
-                    <span>Data Tables</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub">
-                    <li><a class="" href="basic_table.html">Basic Table</a></li>
-                    <li><a class="" href="dynamic_table.html">Dynamic Table</a></li>
-                    <li><a class="" href="editable_table.html">Editable Table</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
+          
+            <li class="sub-menu {{ Request::is('teacher/create/assignment') ? 'active' : '' }}{{ Request::is('teacher/assignment/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-fire"></i>
-                    <span>Icons</span>
+                    <span>Assignment</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" href="font_awesome.html">Font Awesome</a></li>
-                    <li><a class="" href="glyphicons.html">Glyphicons</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a class="" href="javascript:;">
-                    <i class="icon-trophy"></i>
-                    <span>Portlets</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="general_portlet.html" class=""> General Portlet</a></li>
-                    <li><a href="draggable_portlet.html" class="">Draggable Portlet</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a class="" href="javascript:;">
-                    <i class="icon-map-marker"></i>
-                    <span>Maps</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="vector_map.html" class="">Vector Maps</a></li>
-                    <li><a href="google_map.html" class="">Google Map</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;" class="">
-                    <i class="icon-file-alt"></i>
-                    <span>Sample Pages</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub">
-                    <li><a class="" href="blank.html">Blank Page</a></li>
-                    <li><a class="" href="blog.html">Blog</a></li>
-                    <li><a class="" href="timeline.html">Timeline</a></li>
-                    <li><a class="" href="profile.html">Profile</a></li>
-                    <li><a class="" href="about_us.html">About Us</a></li>
-                    <li><a class="" href="contact_us.html">Contact Us</a></li>
-                </ul>
-            </li>
-            <li class="sub-menu">
-                <a href="javascript:;" class="">
-                    <i class="icon-glass"></i>
-                    <span>Extra</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub">
-                    <li><a class="" href="lock.html">Lock Screen</a></li>
-                    <li><a class="" href="invoice.html">Invoice</a></li>
-                    <li><a class="" href="pricing_tables.html">Pricing Tables</a></li>
-                    <li><a class="" href="search_result.html">Search Result</a></li>
-                    <li><a class="" href="faq.html">FAQ</a></li>
-                    <li><a class="" href="404.html">404 Error</a></li>
-                    <li><a class="" href="500.html">500 Error</a></li>
+                    <li><a class="" href="{{route('create_assignment_teacher')}}"><i class="icon-plus"></i> Create Assignment</a></li>
+                    <li><a class="" href="{{route('assignment_list_teacher')}}"><i class="icon-qrcode"></i> View List</a></li>
                 </ul>
             </li>
 
-            <li>
-                <a class="" href="login.html">
-                    <i class="icon-user"></i>
-                    <span>Login Page</span>
+            <li class="sub-menu {{ Request::is('teacher/create/attendance') ? 'active' : '' }}{{ Request::is('teacher/attendance/list') ? 'active' : '' }}">
+                <a class="" href="javascript:;">
+                    <i class="icon-trophy"></i>
+                    <span>Attendance</span>
+                    <span class="arrow"></span>
                 </a>
+                <ul class="sub">
+                    <li><a href="{{route('create_attendance_teacher')}}" class=""><i class="icon-plus"></i> Create Attendance</a></li>
+                    <li><a href="{{route('attendance_list_teacher')}}" class=""><i class="icon-qrcode"></i> View List</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu {{ Request::is('teacher/create/exam') ? 'active' : '' }}{{ Request::is('teacher/exam/list') ? 'active' : '' }}">
+                <a href="javascript:;" class="">
+                    <i class="icon-fire"></i>
+                    <span>Exam</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub ">
+                    <li><a class="" href="{{route('create_exam_teacher')}}"><i class="icon-plus"></i> Create Exam</a></li>
+                    <li><a class="" href="{{route('exam_list_teacher')}}"><i class="icon-qrcode"></i> View List</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu {{ Request::is('teacher/create/question') ? 'active' : '' }}{{ Request::is('teacher/question/list') ? 'active' : '' }}">
+                <a href="javascript:;" class="">
+                    <i class="icon-fire"></i>
+                    <span>Question</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub ">
+                    <li><a class="" href="{{route('create_question_teacher')}}"><i class="icon-plus"></i> Create Question</a></li>
+                    <li><a class="" href="{{route('question_list_teacher')}}"><i class="icon-qrcode"></i> View List</a></li>
+                </ul>
             </li>
         </ul>
         <!-- END SIDEBAR MENU -->
@@ -433,13 +363,20 @@
 <!-- END SIDEBAR -->
 
 
-      @yield('content')
+<div id="main-content">
+
+@yield('content')
+
+
+</div>
+
+
    </div>
    <!-- END CONTAINER -->
 
    <!-- BEGIN FOOTER -->
    <div id="footer">
-       2013 &copy; Metro Lab Dashboard.
+       2021 &copy; Codewin..
    </div>
    <!-- END FOOTER -->
 

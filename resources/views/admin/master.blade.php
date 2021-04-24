@@ -266,13 +266,13 @@ strong{
                        <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                <img src="{{asset('back_end')}}/img/avatar1_small.jpg" alt="">
-                               <span class="username">Jhon Doe</span>
+                               <span class="username">{{Auth::user()->name}}</span>
                                <b class="caret"></b>
                            </a>
                            <ul class="dropdown-menu extended logout">
                                <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
                                <li><a href="#"><i class="icon-cog"></i> My Settings</a></li>
-                               <li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+                               <li><a href="{{route('logout')}}"><i class="icon-key"></i> Log Out</a></li>
                            </ul>
                        </li>
                        <!-- END USER LOGIN DROPDOWN -->
@@ -378,6 +378,17 @@ strong{
                     <li><a href="{{route('attendance_list')}}" class=""><i class="icon-qrcode"></i> View List</a></li>
                 </ul>
             </li>
+            <li class="sub-menu {{ Request::is('create/library') ? 'active' : '' }}{{ Request::is('library/list') ? 'active' : '' }}">
+                <a class="" href="javascript:;">
+                    <i class="icon-map-marker"></i>
+                    <span>Book Library</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a href="{{route('create_library')}}" class=""><i class="icon-plus"></i> Create Book</a></li>
+                    <li><a href="{{route('library_list')}}" class=""><i class="icon-qrcode"></i> View List</a></li>
+                </ul>
+            </li>
             <li class="sub-menu {{ Request::is('create/exam') ? 'active' : '' }}{{ Request::is('exam/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-fire"></i>
@@ -400,17 +411,7 @@ strong{
                     <li><a class="" href="{{route('question_list')}}"><i class="icon-qrcode"></i> View List</a></li>
                 </ul>
             </li>
-            <li class="sub-menu {{ Request::is('create/library') ? 'active' : '' }}{{ Request::is('library/list') ? 'active' : '' }}">
-                <a class="" href="javascript:;">
-                    <i class="icon-map-marker"></i>
-                    <span>Book Library</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub">
-                    <li><a href="{{route('create_library')}}" class=""><i class="icon-plus"></i> Create Book</a></li>
-                    <li><a href="{{route('library_list')}}" class=""><i class="icon-qrcode"></i> View List</a></li>
-                </ul>
-            </li>
+           
             <li class="sub-menu {{ Request::is('create/notice') ? 'active' : '' }}{{ Request::is('notice/list') ? 'active' : '' }}">
                 <a href="javascript:;" class="">
                     <i class="icon-file-alt"></i>
@@ -477,7 +478,7 @@ strong{
       @yield('content')
   
 
-   </div>
+</div>
 <!-- END PAGE --> 
 </div>
    <!-- END CONTAINER -->

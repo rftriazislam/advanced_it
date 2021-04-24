@@ -71,16 +71,22 @@ Route::get('/attendance/list', [App\Http\Controllers\AdminController::class, 'at
 
 //---------exam-----------
 Route::get('/create/exam', [App\Http\Controllers\AdminController::class, 'create_exam'])->name('create_exam');
+Route::post('/exam/post', [App\Http\Controllers\AdminController::class, 'post_exam'])->name('post_exam');
+
 Route::get('/exam/list', [App\Http\Controllers\AdminController::class, 'exam_list'])->name('exam_list');
 //---------exam-----------
 
 //---------question-----------
 Route::get('/create/question', [App\Http\Controllers\AdminController::class, 'create_question'])->name('create_question');
+Route::post('/question/post', [App\Http\Controllers\AdminController::class, 'post_question'])->name('post_question');
+
 Route::get('/question/list', [App\Http\Controllers\AdminController::class, 'question_list'])->name('question_list');
 //---------question-----------
 
 //---------library-----------
 Route::get('/create/library', [App\Http\Controllers\AdminController::class, 'create_library'])->name('create_library');
+Route::post('/library/post', [App\Http\Controllers\AdminController::class, 'post_library'])->name('post_library');
+
 Route::get('/library/list', [App\Http\Controllers\AdminController::class, 'library_list'])->name('library_list');
 //---------library-----------
 
@@ -93,6 +99,8 @@ Route::get('/notice/list', [App\Http\Controllers\AdminController::class, 'notice
 
 //---------vacation-----------
 Route::get('/create/vacation', [App\Http\Controllers\AdminController::class, 'create_vacation'])->name('create_vacation');
+Route::post('/vacation/post', [App\Http\Controllers\AdminController::class, 'post_vacation'])->name('post_vacation');
+
 Route::get('/vacation/list', [App\Http\Controllers\AdminController::class, 'vacation_list'])->name('vacation_list');
 //---------vacation-----------
 
@@ -117,6 +125,41 @@ Route::get('/student/list', [App\Http\Controllers\AdminController::class, 'stude
 Route::group(['middleware' => ['auth', 'teacher'],], function () {
 
     Route::get('/teacher', [App\Http\Controllers\TeacherController::class, 'index'])->name('teacher');
+
+
+//---------material-----------
+Route::get('/teacher/create/material', [App\Http\Controllers\TeacherController::class, 'create_material'])->name('create_material_teacher');
+Route::post('/teacher/material/post', [App\Http\Controllers\TeacherController::class, 'post_material'])->name('post_material_teacher');
+
+Route::get('/teacher/material/list', [App\Http\Controllers\TeacherController::class, 'material_list'])->name('material_list_teacher');
+//---------material-----------
+
+//---------assignment-----------
+Route::get('/teacher/create/assignment', [App\Http\Controllers\TeacherController::class, 'create_assignment'])->name('create_assignment_teacher');
+Route::post('/teacher/assignment/post', [App\Http\Controllers\TeacherController::class, 'post_assignment'])->name('post_assignment_teacher');
+Route::get('/teacher/assignment/list', [App\Http\Controllers\TeacherController::class, 'assignment_list'])->name('assignment_list_teacher');
+//---------assignment-----------
+
+//---------attendance-----------
+Route::get('/teacher/create/attendance', [App\Http\Controllers\TeacherController::class, 'create_attendance'])->name('create_attendance_teacher');
+Route::post('/teacher/attendance/post', [App\Http\Controllers\TeacherController::class, 'post_attendance'])->name('post_attendance_teacher');
+
+Route::get('/teacher/attendance/list', [App\Http\Controllers\TeacherController::class, 'attendance_list'])->name('attendance_list_teacher');
+//---------attendance-----------
+
+//---------exam-----------
+Route::get('/teacher/create/exam', [App\Http\Controllers\TeacherController::class, 'create_exam'])->name('create_exam_teacher');
+Route::post('/teacher/exam/post', [App\Http\Controllers\TeacherController::class, 'post_exam'])->name('post_exam_teacher');
+
+Route::get('/teacher/exam/list', [App\Http\Controllers\TeacherController::class, 'exam_list'])->name('exam_list_teacher');
+//---------exam-----------
+
+//---------question-----------
+Route::get('/teacher/create/question', [App\Http\Controllers\TeacherController::class, 'create_question'])->name('create_question_teacher');
+Route::post('/teacher/question/post', [App\Http\Controllers\TeacherController::class, 'post_question'])->name('post_question_teacher');
+
+Route::get('/teacher/question/list', [App\Http\Controllers\TeacherController::class, 'question_list'])->name('question_list_teacher');
+//---------question-----------
 
 
 });
