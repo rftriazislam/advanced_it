@@ -16,12 +16,12 @@ class CreateMcQuestionsTable extends Migration
         Schema::create('mc_questions', function (Blueprint $table) {
             $table->id();
             $table->integer('exam_id');
-            $table->string('question_name');
+            $table->longText('question_name');
             $table->integer('question_number');
-            $table->string('A');
-            $table->string('B');
-            $table->string('C');
-            $table->string('D');
+            $table->longText('A');
+            $table->longText('B');
+            $table->longText('C');
+            $table->longText('D');
             $table->string('answer');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

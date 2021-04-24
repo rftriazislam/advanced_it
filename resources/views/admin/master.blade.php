@@ -497,7 +497,7 @@ strong{
    <script type="text/javascript" src="{{asset('back_end')}}/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
    <script src="{{asset('back_end')}}/assets/fullcalendar/fullcalendar/fullcalendar.min.js"></script>
    <script src="{{asset('back_end')}}/assets/bootstrap/js/bootstrap.min.js"></script>
-
+   <script type="text/javascript" src="{{asset('back_end')}}/assets/ckeditor/ckeditor.js"></script>
    <!-- ie8 fixes -->
    <!--[if lt IE 9]>
    <script src="{{asset('back_end')}}/js/excanvas.js"></script>

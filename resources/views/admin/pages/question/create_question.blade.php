@@ -65,13 +65,7 @@
                     <form action="{{route('post_question')}}" method="post" class="form-horizontal">
 
                         @csrf
-                        <div class="control-group">
-                            <label class="control-label">Question Number (Sri.No) </label>
-                            <div class="controls">
-                                <input type="number" name="question_number" class="span6 " />
-
-                            </div>
-                        </div>
+                        
                         <div class="control-group">
                             <label class="control-label"> Exam Name</label>
                             <div class="controls">
@@ -87,43 +81,51 @@
                             </div>
                         </div>
 
-
                         <div class="control-group">
+                            <label class="control-label">Question Number (Sri.No) </label>
+                            <div class="controls">
+                                <input type="number" name="question_number" class="span6 " />
+
+                            </div>
+                        </div>
+                        <!-- <div class="control-group">
                             <label class="control-label">Question Name </label>
                             <div class="controls">
                                 <input type="text" name="question_name" class="span6 " />
 
                             </div>
-                        </div>
-                   
+                        </div> -->
                         <div class="control-group">
-                            <label class="control-label">Question A</label>
+                            <label class="control-label">Question Name</label>
                             <div class="controls">
-                                <input type="text" required name="A" class="span6 " />
-
+                                <textarea class="span12 ckeditor" name="question_name" rows="4"></textarea>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">Question A</label>
                             <div class="controls">
-                                <input type="text" name="B" required class="span6 " />
-
+                                <textarea class="span12 ckeditor" name="A" rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Question B</label>
+                            <div class="controls">
+                                <textarea class="span12 ckeditor" name="B" rows="4"></textarea>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">Question C</label>
                             <div class="controls">
-                                <input type="text" required name="C" class="span6 " />
-
+                                <textarea class="span12 ckeditor" name="C" rows="4"></textarea>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">Question D</label>
                             <div class="controls">
-                                <input type="text" name="D" required class="span6 " />
-
+                                <textarea class="span12 ckeditor" name="D" rows="4"></textarea>
                             </div>
                         </div>
+                      
                         <div class="control-group">
                             <label class="control-label">Question Answer</label>
                             <div class="controls">
