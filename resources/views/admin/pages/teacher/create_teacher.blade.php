@@ -53,91 +53,62 @@
                 </div>
                 <div class="widget-body">
                     <!-- BEGIN FORM-->
-                    <form action="#" class="form-horizontal">
-                        <div class="control-group">
-                            <label class="control-label"> Section Name</label>
-                            <div class="controls">
-                                <select data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
-                                    tabindex="-1" id="selCSI">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    <!-- BEGIN FORM-->
+                    <form action="{{route('post_teacher')}}" method="post" class="form-horizontal">
 
-                                    <option selected=""> One</option>
-                                    <option>Two</option>
-                                    <option> Three</option>
-                                    <option> Four</option>
-                                    <option> Five</option>
-                                    <option> Six</option>
-                                    <option>Seven</option>
-                                    <option> Eight</option>
-                                    <option> Nine</option>
-                                    <option> Ten</option>
-                                    <option> Eleven</option>
-                                    <option> Twelve</option>
-
-                                </select>
-                            </div>
-                        </div>
-
+                        @csrf
                         <div class="control-group">
                             <label class="control-label"> Teacher Name</label>
                             <div class="controls">
-                                <select data-placeholder="Your Favorite Type of Bear" class="chzn-select-deselect span6"
+                                <select data-placeholder="Your Favorite Type of Bear" name="user_id" class="chzn-select-deselect span6"
                                     tabindex="-1" id="selCSI">
 
-                                    <option selected="">Class 1</option>
-                                    <option>Class 2</option>
-                                    <option>Class 3</option>
-                                    <option>Class 4</option>
-                                    <option>Class 5</option>
-                                    <option>Class 6</option>
-                                    <option>Class 7</option>
-                                    <option>Class 8</option>
-                                    <option>Class 9</option>
-                                    <option>Class 10</option>
-                                    <option>Class 11</option>
-                                    <option>Class 12</option>
+                                    <option selected="" disabled > Select Teacher</option>
+                                    @foreach($teachers as $teacher)
+                                    <option value="{{$teacher->id}}">{{$teacher->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label"> Class Name</label>
+                            <div class="controls">
+                                <select data-placeholder="Your Favorite Type of Bear" name="class_id" class="chzn-select-deselect span6"
+                                    tabindex="-1" id="selCSI">
+
+                                    <option selected="" disabled> Select Class Name</option>
+                                    @foreach($classes as $class)
+                                    <option value="{{$class->id}}"> class {{$class->class_number}}</option>
+                                    @endforeach
 
                                 </select>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">Martial Name</label>
+                            <label class="control-label"> Subject Name</label>
                             <div class="controls">
-                                <input type="text" class="span6 " />
+                                <select data-placeholder="Your Favorite Type of Bear" name="subject" class="chzn-select-deselect span6"
+                                    tabindex="-1" id="selCSI">
 
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Subject</label>
-                            <div class="controls">
-                                <input type="text" class="span6 " />
+                                    <option selected="" disabled> Select Subject Name</option>
+                                    @foreach($subjects as $subject)
+                                    <option value="{{$subject->subject_name}}">{{$subject->subject_name}}</option>
+                                    @endforeach
 
+                                </select>
                             </div>
                         </div>
-                        <div class="control-group">
-                            <label class="control-label">Description</label>
-                            <div class="controls">
-                                <textarea class="span6 " rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                                    <label class="control-label">Upload Pdf</label>
-                                    <div class="controls">
-                                        <div data-provides="fileupload" class="fileupload fileupload-new">
-                                            <div class="input-append">
-                                                <div class="uneditable-input">
-                                                    <i class="icon-file fileupload-exists"></i>
-                                                    <span class="fileupload-preview"></span>
-                                                </div>
-                                               <span class="btn btn-file">
-                                               <span class="fileupload-new">Select file</span>
-                                               <span class="fileupload-exists">Change</span>
-                                               <input type="file" class="default">
-                                               </span>
-                                                <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success">Save</button>
                             <button type="button" class="btn">Cancel</button>

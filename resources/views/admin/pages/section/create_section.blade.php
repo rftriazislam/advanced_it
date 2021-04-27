@@ -126,15 +126,21 @@
       $.ajax({
         type:"GET",
         url:"{{url('get-teacher-list')}}?class_id="+class_id,
-       
+        dataType: "json",
 
-        success:function(res){        
-        if(res){
+        success:function(res){ 
+
+          
+         if(res){
+
+           
+
           $("#teacher").empty();
           $("#teacher").append('<option selected="" disabled>Select Teacher</option>');
-          $.each(res,function(key,value){
-            $("#teacher").append('<option value="'+key+'">'+value+'</option>');
-          });
+          $("#teacher").append(res.load);
+        //   $.each(res,function(key,value,subject){
+        //     $("#teacher").append('<option value="'+key+'">'+value+' '+subject+'</option>');
+        //   });
         
         }else{
           $("#teacher").empty();

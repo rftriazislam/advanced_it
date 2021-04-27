@@ -36,6 +36,13 @@ Route::post('/class/post', [App\Http\Controllers\AdminController::class, 'post_c
 Route::get('/class/list', [App\Http\Controllers\AdminController::class, 'class_list'])->name('class_list');
 //---------class-----------
 
+//---------subject-----------
+Route::get('/create/subject', [App\Http\Controllers\AdminController::class, 'create_subject'])->name('create_subject');
+ 
+Route::post('/subject/post', [App\Http\Controllers\AdminController::class, 'post_subject'])->name('post_subject');
+Route::get('/subject/list', [App\Http\Controllers\AdminController::class, 'subject_list'])->name('subject_list');
+//---------subject-----------
+
 //---------Section-----------
 Route::get('/create/section', [App\Http\Controllers\AdminController::class, 'create_section'])->name('create_section');
 Route::post('/section/post', [App\Http\Controllers\AdminController::class, 'post_section'])->name('post_section');
@@ -110,7 +117,13 @@ Route::get('/video/list', [App\Http\Controllers\AdminController::class, 'video_l
 //---------video-----------
 
 //---------teacher-----------
+
+Route::get('/approved/teacher', [App\Http\Controllers\AdminController::class, 'approved_teacher'])->name('approved_teacher');
+Route::get('/role/teacher/{id}', [App\Http\Controllers\AdminController::class, 'teacher_role'])->name('teacher_role');
+
 Route::get('/create/teacher', [App\Http\Controllers\AdminController::class, 'create_teacher'])->name('create_teacher');
+Route::post('/teacher/post', [App\Http\Controllers\AdminController::class, 'post_teacher'])->name('post_teacher');
+
 Route::get('/teacher/list', [App\Http\Controllers\AdminController::class, 'teacher_list'])->name('teacher_list');
 //---------teacher-----------
 

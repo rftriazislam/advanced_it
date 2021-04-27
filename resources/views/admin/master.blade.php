@@ -20,6 +20,9 @@
    <link href="{{asset('back_end')}}/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
   
   <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+  @yield('style')
 <style>
 strong{
     color:red;
@@ -318,6 +321,32 @@ strong{
                    
                 </ul>
             </li>
+            <li class="sub-menu {{ Request::is('create/subject') ? 'active' : '' }}{{ Request::is('subject/list') ? 'active' : '' }}">
+                <a href="javascript:;" class="">
+                    <i class="icon-user"></i>
+                    <span>Subject</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{{route('create_subject')}}"><i class="icon-plus"></i> Create Subject</a></li>
+                    <li><a class="" href="{{route('subject_list')}}"><i class="icon-qrcode"></i> View List</a></li>
+                   
+                </ul>
+            </li>
+            <li class="sub-menu {{ Request::is('create/teacher') ? 'active' : '' }}{{ Request::is('teacher/list') ? 'active' : '' }}">
+                <a href="javascript:;" class="">
+                    <i class="icon-user"></i>
+                    <span>Teacher</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                     <li><a class="" href="{{route('approved_teacher')}}"><i class="icon-plus"></i> Approved Teacher</a></li>
+                    <li><a class="" href="{{route('create_teacher')}}"><i class="icon-plus"></i> Create Teacher</a></li>
+                    <li><a class="" href="{{route('teacher_list')}}"><i class="icon-qrcode"></i> View List</a></li>
+                   
+                </ul>
+            </li>
+
             <li class="sub-menu {{ Request::is('create/section') ? 'active' : '' }}{{ Request::is('section/list') ? 'active' : '' }} ">
                 <a href="javascript:;" class="">
                     <i class="icon-cogs"></i>
@@ -448,19 +477,7 @@ strong{
                   
                 </ul>
             </li>
-            <li class="sub-menu {{ Request::is('create/teacher') ? 'active' : '' }}{{ Request::is('teacher/list') ? 'active' : '' }}">
-                <a href="javascript:;" class="">
-                    <i class="icon-user"></i>
-                    <span>Teacher</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub">
-                    <li><a class="" href="{{route('create_teacher')}}"><i class="icon-plus"></i> Create Teacher</a></li>
-                    <li><a class="" href="{{route('teacher_list')}}"><i class="icon-qrcode"></i> View List</a></li>
-                   
-                </ul>
-            </li>
-
+          
             <li class="{{ Request::is('student/list') ? 'active' : '' }}">
                 <a class="" href="{{route('student_list')}}">
                     <i class="icon-user"></i>

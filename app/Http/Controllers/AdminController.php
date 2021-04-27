@@ -19,6 +19,8 @@ use App\Models\McQuestion;
 use App\Models\Vacation;
 use App\Models\Result;
 use App\Models\User;
+use App\Models\Subject;
+
 
 use Auth;
 
@@ -60,6 +62,34 @@ public function post_class(Request $request){
   ));   
  }
 //----------------------------------------------class------------------------------------
+
+
+//----------------------------------------------Subject------------------------------------
+public function create_subject(){
+    
+   return view('admin.pages.subject.create_subject');   
+}
+
+public function post_subject(Request $request){
+
+  $validatedData= $this->validate($request,[
+     'subject_name'=>'required|unique:subjects,subject_name,',
+   
+  ]);
+  $user = Subject::create($validatedData);
+  return back()->with('success','Subject save successfully');
+
+}
+
+public function subject_list(){
+  $subjects=Subject::all();
+  return view('admin.pages.subject.subject_list',
+ compact(
+    'subjects'
+ ));   
+}
+//----------------------------------------------Subject------------------------------------
+
 
 //----------------------------------------------Section------------------------------------
 public function create_section(){
@@ -352,7 +382,23 @@ public function post_exam(Request $request){
 }
 public function exam_list(){
    
-   return view('admin.pages.exam.exam_list');   
+   $exam_list = Exam::with([
+      'section_info' => function ($query) {
+          $query->select('id','section_name','class_id')
+          ->with([
+             'class_info'=> function ($query) {
+               $query->select('id','class_number')  ;
+          }]) ;
+         },
+      'teacher_info' => function ($query) {
+         $query->select('id','name');
+     }
+     
+  ])
+  ->get();
+   return view('admin.pages.exam.exam_list',compact(
+      'exam_list'
+   ));   
 }
 //----------------------------------------------exam------------------------------------
 
@@ -361,7 +407,8 @@ public function create_question(){
    $exams=Exam::where('status',1)->get();
    return view('admin.pages.question.create_question',compact(
       'exams'
-   ));   
+   ));  
+   // return view('admin.pages.question.editor'); 
 }
 public function post_question(Request $request){
 
@@ -495,9 +542,53 @@ public function vacation_list(){
 //----------------------------------------------vacation------------------------------------
 
 //----------------------------------------------teacher------------------------------------
-public function create_teacher(){
-   return view('admin.pages.teacher.create_teacher');   
+
+public function approved_teacher(){
+   $teachers=User::where('role','user')->get();
+   return view('admin.pages.teacher.approved_teacher',compact(
+      'teachers'
+   ));   
 }
+
+public function teacher_role($id){
+
+   $teacher=User::where('id',$id)->first();
+   $teacher->update([ 
+       'role'=>'teacher'
+  ] );
+
+   return back();
+}
+public function create_teacher(){
+   $teachers=User::where('role','teacher')->get();
+   $subjects=Subject::all();
+   $classes=Classs::all();
+   return view('admin.pages.teacher.create_teacher',compact(
+      'teachers',
+      'subjects',
+      'classes'
+   ));   
+}
+
+
+public function post_teacher(Request $request){
+
+ $user_info=User::where('id',$request->user_id)->first();
+
+   $validatedData= $this->validate($request,[
+      'class_id'=>'required|unique:teachers,class_id,' . $request->class_id . ',id,subject,' . $request->subject,
+      'user_id'=>'required|exists:users,id',
+      'subject'=>'required',
+   ]);
+
+   $validatedData['name']=$user_info->name;
+
+   $teacher = Teacher::create($validatedData);
+   return back()->with('success','Class save successfully');
+
+}
+
+
 public function teacher_list(){
    return view('admin.pages.teacher.teacher_list');   
 }

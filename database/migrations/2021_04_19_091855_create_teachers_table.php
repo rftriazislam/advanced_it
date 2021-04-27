@@ -19,9 +19,7 @@ class CreateTeachersTable extends Migration
             $table->integer('class_id');
             $table->string('subject');
             $table->string('name');
-            $table->string('address');
-            $table->string('institute_name');
-            $table->string('graduate');
+
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
