@@ -96,8 +96,12 @@ if (window.location.search !== '') {
                            @endphp 
                             </p>
                          
+                            
                         </div>
-
+                       
+                        <div class="alert alert-block alert-success fade in">
+ <p>Answer: {{$question->answer}} </p>
+                        </div>
                     </div>
                 </div>
                 <!-- END NOTIFICATION PORTLET-->
