@@ -20,7 +20,7 @@ use App\Models\Vacation;
 use App\Models\Result;
 use App\Models\User;
 use App\Models\Subject;
-
+use Illuminate\Validation\Rule;
 
 use Auth;
 
@@ -103,11 +103,16 @@ public function create_section(){
  public function post_section(Request $request){
 
    $validatedData= $this->validate($request,[
-      'class_id'=>'required|unique:sections,class_id,' . $request->class_id . ',id,section_name,' . $request->section_name,
       'section_name'=>'required',
       'teacher_id'=>'required',
-
-   ]);
+      'class_id'=>['required',
+                      Rule::unique('sections')
+                      ->where('class_id',$request->class_id)
+                      ->where('teacher_id',$request->teacher_id)
+                      ->where('section_name',$request->section_name),
+                   ],
+     
+              ]);
 
    
    $user = Section::create($validatedData);
@@ -152,7 +157,7 @@ public function create_schedule(){
       'section_id'=>'required',
       'start_time'=>'required',
       'end_time'=>'required',
-      'class_subject'=>'required',
+      'subject'=>'required',
       'day'=>'required'
    ]);
   $teacher_id=Section::where('id',$request->section_id)->first();
@@ -432,8 +437,44 @@ public function post_question(Request $request){
 
 
 public function question_list(){
-   return view('admin.pages.question.question_list');   
+   $exams=Exam::all();
+   return view('admin.pages.question.question_list',compact(
+      'exams'
+   ));   
 }
+public function question_view($exam_id){
+   $questions=McQuestion::where('exam_id',$exam_id)->get();
+   return view('admin.pages.question.question_exam_list',compact(
+      'questions'
+   ));   
+}
+
+public function question_delete($question_id){
+   $questions=McQuestion::where('id',$question_id)->delete();
+   return back();
+}
+
+public function question_edit($question_id){
+   $question=McQuestion::where('id',$question_id)->first();
+   $exams=Exam::where('status',1)->get();
+   return view('admin.pages.question.edit_question',compact(
+      'question',
+      'exams'
+   ));  
+}
+
+
+public function update_question(Request $request){
+   $question_id=$request->question_id;
+   $question=McQuestion::where('id',$question_id)->first();
+   $question->update($request->all());
+   $questions=McQuestion::where('exam_id',$question->exam_id)->get();
+
+   return view('admin.pages.question.question_exam_list',compact(
+      'questions'
+   ));   
+}
+
 //----------------------------------------------question------------------------------------
 
 //----------------------------------------------library------------------------------------
@@ -474,6 +515,8 @@ public function library_list(){
       'libraries'
    ));   
 }
+
+
 //----------------------------------------------library------------------------------------
 
 //----------------------------------------------notice------------------------------------
@@ -590,7 +633,10 @@ public function post_teacher(Request $request){
 
 
 public function teacher_list(){
-   return view('admin.pages.teacher.teacher_list');   
+   $teachers = Teacher::all();
+   return view('admin.pages.teacher.teacher_list',compact(
+      'teachers'
+   ));   
 }
 //----------------------------------------------teacher------------------------------------
 

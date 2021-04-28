@@ -102,8 +102,8 @@
                         </div>
                         <div class="control-group">
                             <label class="control-label">Subject</label>
-                            <div class="controls">
-                                <input type="text" name="subject" required class="span6 " />
+                            <div class="controls" id="subject">
+                                <input type="text" name="subject" disabled required class="span6 " />
 
                             </div>
                         </div>
@@ -148,23 +148,30 @@
 @endsection
 
 @section('js')
+<!-- <script src="{{asset('front_end')}}/ajax_js/select.js"></script> -->
 <script type=text/javascript>
 $('#class_id').change(function() {
     var class_id = $(this).val();
     if (class_id) {
         $.ajax({
             type: "GET",
-            url: "{{url('get-section-list')}}?class_id=" + class_id,
+            url: "{{url('get-section-list-subject')}}?class_id=" + class_id,
 
+            dataType: "json",
 
             success: function(res) {
+
+
                 if (res) {
+
+
+
                     $("#section").empty();
-                    $("#section").append('<option selected="" disabled>Select Section</option>');
-                    $.each(res, function(key, value) {
-                        $("#section").append('<option value="' + key + '">' + value +
-                            '</option>');
-                    });
+                    $("#section").append('<option selected="" disabled>Select Teacher</option>');
+                    $("#section").append(res.load);
+                    //   $.each(res,function(key,value,subject){
+                    //     $("#teacher").append('<option value="'+key+'">'+value+' '+subject+'</option>');
+                    //   });
 
                 } else {
                     $("#section").empty();
@@ -175,6 +182,42 @@ $('#class_id').change(function() {
     } else {
 
         $("#section").empty();
+
+    }
+});
+
+$('#section').change(function() {
+    var section_id = $(this).val();
+    if (section_id) {
+        $.ajax({
+            type: "GET",
+            url: "{{url('get-subject-list')}}?section_id=" + section_id,
+
+            dataType: "json",
+
+            success: function(res) {
+
+
+                if (res) {
+
+
+
+                    $("#subject").empty();
+                
+                    $("#subject").append(res.load);
+                    //   $.each(res,function(key,value,subject){
+                    //     $("#teacher").append('<option value="'+key+'">'+value+' '+subject+'</option>');
+                    //   });
+
+                } else {
+                    $("#subject").empty();
+
+                }
+            }
+        });
+    } else {
+
+        $("#subject").empty();
 
     }
 });

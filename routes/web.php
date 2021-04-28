@@ -88,6 +88,14 @@ Route::get('/create/question', [App\Http\Controllers\AdminController::class, 'cr
 Route::post('/question/post', [App\Http\Controllers\AdminController::class, 'post_question'])->name('post_question');
 
 Route::get('/question/list', [App\Http\Controllers\AdminController::class, 'question_list'])->name('question_list');
+
+Route::get('/question/views/{id}', [App\Http\Controllers\AdminController::class, 'question_view'])->name('question_view');
+
+Route::get('/question/delete/{id}', [App\Http\Controllers\AdminController::class, 'question_delete'])->name('question_delete');
+Route::get('/question/edit/{id}', [App\Http\Controllers\AdminController::class, 'question_edit'])->name('question_edit');
+Route::post('/question/update', [App\Http\Controllers\AdminController::class, 'update_question'])->name('update_question');
+
+
 //---------question-----------
 
 //---------library-----------
@@ -207,4 +215,7 @@ Route::group(['middleware' => ['auth', 'accountant'],], function () {
 
 Route::get('/get-teacher-list', [App\Http\Controllers\Ajax\AjaxController::class, 'get_teacher_list'])->name('get_teacher_list');
 Route::get('/get-section-list', [App\Http\Controllers\Ajax\AjaxController::class, 'get_section_list'])->name('get_section_list');
+Route::get('/get-section-list-subject', [App\Http\Controllers\Ajax\AjaxController::class, 'get_section_list_subject'])->name('get_section_list_subject');
+
+Route::get('/get-subject-list', [App\Http\Controllers\Ajax\AjaxController::class, 'get_subject_list'])->name('get_subject_list');
 

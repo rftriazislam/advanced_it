@@ -92,6 +92,7 @@
                             <div class="controls">
                                 <select id="section" name="section_id" data-placeholder="Your Favorite Type of Bear"
                                     class="chzn-select-deselect span6" tabindex="-1" id="selCSI">
+                                 
 
 
 
@@ -144,17 +145,23 @@ $('#class_id').change(function() {
     if (class_id) {
         $.ajax({
             type: "GET",
-            url: "{{url('get-section-list')}}?class_id=" + class_id,
+            url: "{{url('get-section-list-subject')}}?class_id=" + class_id,
 
+            dataType: "json",
 
             success: function(res) {
+
+
                 if (res) {
+
+
+
                     $("#section").empty();
-                    $("#section").append('<option selected="" disabled>Select Section</option>');
-                    $.each(res, function(key, value) {
-                        $("#section").append('<option value="' + key + '">' + value +
-                            '</option>');
-                    });
+                    $("#section").append('<option selected="" disabled>Select Teacher</option>');
+                    $("#section").append(res.load);
+                    //   $.each(res,function(key,value,subject){
+                    //     $("#teacher").append('<option value="'+key+'">'+value+' '+subject+'</option>');
+                    //   });
 
                 } else {
                     $("#section").empty();
@@ -168,5 +175,6 @@ $('#class_id').change(function() {
 
     }
 });
+
 </script>
 @endsection

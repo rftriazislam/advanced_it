@@ -1,0 +1,1 @@
+{"result":{"text":"square root of d space d open parentheses d d d close parentheses end root 2"},"status":"ok"}
