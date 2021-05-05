@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\GetController;
+use App\Http\Controllers\Api\PostController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,13 +37,19 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/study/materials', [GetController::class,'materials']);
     Route::get('/assignments', [GetController::class,'assignments']);
     Route::get('/attendances', [GetController::class,'attendances']);
-
     Route::get('/libraries', [GetController::class,'libraries']);
-
     Route::get('/notices', [GetController::class,'notices']);
-
     Route::get('/exams', [GetController::class,'exams']);
-
     Route::get('/questions/{exam_id}', [GetController::class,'questions']);
+
+    Route::post('/profile-update/{user_id}', [AuthController::class,'profile_update']);
+
+    Route::get('/vacations', [GetController::class,'vacations']);
+
+    Route::get('/videos', [GetController::class,'videos']);
+
+    Route::post('/assignment/answer', [PostController::class,'assignment_answer']);
+
+
 
 });

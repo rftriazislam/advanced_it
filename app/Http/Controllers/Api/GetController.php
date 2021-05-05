@@ -17,6 +17,8 @@ use App\Models\Exam;
 use App\Models\McQuestion;
 use App\Models\Vacation;
 use App\Models\Result;
+use App\Models\Video;
+
 use App\Models\User;
 
 class GetController extends Controller
@@ -108,6 +110,8 @@ if ($materials) {
     return response()->json(['success' => false, 'message' => 'something error'],400);
 }
 }
+
+
 
 
 public function attendances(){
@@ -202,5 +206,28 @@ if ($questions) {
     return response()->json(['success' => false, 'message' => 'something error'],400);
 }
 }
+
+public function vacations(){
+   
+    $vacations = Vacation::where('status',1)->get();
+  
+if (count($vacations)>0) {
+    return response()->json(['sucsess' => true, 'questions' => $vacations], 200);
+} else {
+    return response()->json(['success' => false, 'message' => 'something error'],400);
+}
+}
+
+public function videos(){
+   
+    $videos = Video::where('status',1)->get();
+  
+if (count($videos)>0) {
+    return response()->json(['sucsess' => true, 'videos' => $videos], 200);
+} else {
+    return response()->json(['success' => false, 'message' => 'something error'],400);
+}
+}
+
 
 }
